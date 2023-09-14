@@ -1,11 +1,9 @@
 "use client";
 
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
 
-// eslint-disable-next-line @next/next/no-async-client-component
-export default function Home() {
+const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [data, setData] = useState({
     _id: "",
@@ -31,14 +29,13 @@ export default function Home() {
     fetchUser();
   }, []);
   return (
-    <>
-      {isLoggedIn ? (
-        <h1>
-          Hello {data.username}, your role is {data.role}
-        </h1>
-      ) : (
-        <h1>Welcome</h1>
-      )}
-    </>
+    <header className="flex justify-between items-center bg-lime-500 h-10">
+      <div className="text-white">SME Portal</div>
+      <div className="text-white">
+        {isLoggedIn ? `Hi ${data.username}` : "Login"}
+      </div>
+    </header>
   );
-}
+};
+
+export default Navbar;

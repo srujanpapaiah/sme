@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     connect();
     const userId = await getDataFromToken(request);
     const user = await User.findOne({ _id: userId }).select(
-      "-password -isAdmin -role"
+      "-password -isAdmin"
     );
     return NextResponse.json({
       data: user,
