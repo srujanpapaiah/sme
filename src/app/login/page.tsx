@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
+import Navbar from "../components/Navbar";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +20,7 @@ export default function Login() {
       const response = await axios.post("/api/users/login", user);
       toast.success("Login Success");
       router.push("/");
+      <Navbar clicked={true} />;
     } catch (error: any) {
       toast.error(error.message);
     } finally {

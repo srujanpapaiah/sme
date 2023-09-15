@@ -4,11 +4,14 @@ export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   const isPublicPath =
-    path === "/login" || path === "/signup" || path === "/verifyemail";
+    path === "/login" ||
+    path === "/signup" ||
+    path === "/verifyemail" ||
+    path === "/";
 
   const token = request.cookies.get("token")?.value || "";
 
-  if (isPublicPath && token) {
+  if (isPublicPath && token && path !== "/") {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 
