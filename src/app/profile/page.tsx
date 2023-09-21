@@ -3,7 +3,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { toast, Toaster } from "react-hot-toast";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Profile() {

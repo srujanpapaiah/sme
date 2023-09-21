@@ -51,6 +51,23 @@ export default function Dashboard() {
           <h1 className="text-3xl mb-4">
             Hello {data.username}, your role is {data.role}
           </h1>
+          <div className="flex gap-4">
+            <Link href="/email">
+              <button className="border border-lime-500 px-6 py-3 rounded text-lime-500 hover:bg-lime-500 hover:text-white transition duration-300">
+                Emails
+              </button>
+            </Link>
+            <Link href="/doubts">
+              <button className="border border-lime-500 px-6 py-3 rounded text-lime-500 hover:bg-lime-500 hover:text-white transition duration-300">
+                Doubts
+              </button>
+            </Link>
+            <Link href="/assignments">
+              <button className="border border-lime-500 px-6 py-3 rounded text-lime-500 hover:bg-lime-500 hover:text-white transition duration-300">
+                Assignments
+              </button>
+            </Link>
+          </div>
         </div>
       ) : (
         <div>
