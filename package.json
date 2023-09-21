@@ -37,6 +37,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.3",
     "@types/jsonwebtoken": "^9.0.2",
+    "@types/mongoose": "^5.11.97",
     "@types/nodemailer": "^6.4.10",
     "@types/react-datepicker": "^4.15.0"
   }

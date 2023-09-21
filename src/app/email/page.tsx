@@ -118,7 +118,7 @@ export default function Home() {
       </div>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {!loading && !error && name && <RenderAnalytics tableData={tableData} />}
+      {!loading && !error && !name && <RenderAnalytics tableData={tableData} />}
       <div className="text-center">
         <Spreadsheet darkMode data={tableData} />
       </div>
