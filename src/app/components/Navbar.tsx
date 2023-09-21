@@ -5,7 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const Navbar = ({ clicked }) => {
+const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({
