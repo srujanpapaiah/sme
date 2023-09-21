@@ -20,7 +20,6 @@ export default function Login() {
       const response = await axios.post("/api/users/login", user);
       toast.success("Login Success");
       router.push("/");
-      <Navbar clicked={true} />;
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -29,31 +28,38 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="min-h-screen flex items-center justify-center ">
       <Toaster />
-      {isLoading ? "Processing" : "Login"}
-      <hr />
-      <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-        type="email"
-        value={user.email}
-        onChange={(e) => setUser({ ...user, email: e.target.value })}
-        placeholder="email"
-      />
-      <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-        type="password"
-        value={user.password}
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
-        placeholder="password"
-      />
-      <button
-        onClick={onLogin}
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
-      >
-        Login
-      </button>
-      <span>Not registered yet?</span> <Link href="/signup">Signup</Link>
+      <div className="bg-white p-8 rounded-lg shadow-md w-96">
+        <h1 className="text-2xl font-semibold mb-4">Login</h1>
+        <input
+          className="p-2 border border-gray-300 rounded-lg mb-4 w-full focus:outline-none focus:border-lime-600 text-black"
+          type="email"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          placeholder="Email"
+        />
+        <input
+          className="p-2 border border-gray-300 rounded-lg mb-4 w-full focus:outline-none focus:border-lime-600 text-black"
+          type="password"
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          placeholder="Password"
+        />
+        <button
+          onClick={onLogin}
+          className="w-full bg-lime-500 text-white p-2 rounded-lg focus:outline-none hover:bg-lime-600"
+          disabled={isLoading}
+        >
+          {isLoading ? "Logging in..." : "Login"}
+        </button>
+        <p className="mt-4 text-lime-500 text-center">
+          Not registered yet?{" "}
+          <Link href="/signup" className="text-lime-700">
+            Signup
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

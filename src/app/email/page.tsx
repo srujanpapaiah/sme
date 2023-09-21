@@ -61,7 +61,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="my-10 flex justify-between">
+      <div className="my-10 flex justify-between items-center px-6">
         <select
           style={{ padding: 10 }}
           onChange={(e) => setName(e.target.value)}
@@ -76,11 +76,12 @@ export default function Home() {
           <option value="Sanjay">Sanjay</option>{" "}
         </select>
 
-        <div style={{ display: "flex" }}>
+        <div>
           <button
             onClick={() => {
               setStartDate(dayjs(startDate).subtract(1, "day").toDate());
             }}
+            className="border border-green-500 hover:border-green-600 text-white  hover:bg-green-600 px-4 py-2 rounded"
           >
             &lt;
           </button>
@@ -91,20 +92,25 @@ export default function Home() {
               console.log(date);
               setStartDate(date);
             }}
+            className="border border-green-500 mx-2 py-2 text-center rounded-md"
           />
           <button
             onClick={() => {
               setStartDate(dayjs(startDate).add(1, "day").toDate());
             }}
+            className="border border-green-500 hover:border-green-600 text-white  hover:bg-green-600 px-4 py-2 rounded "
           >
             &gt;
-          </button>{" "}
+          </button>
         </div>
-        <div>
-          <button onClick={getData} className="p-1 md:p-5 m-1">
+        <div className="flex gap-2">
+          <button
+            onClick={getData}
+            className="p-2 border border-green-500 hover:border-green-600 rounded text-white"
+          >
             Refetch
           </button>
-          <button className="p-1 md:p-5 m-1">
+          <button className="p-2  border border-green-500 hover:border-green-600 rounded text-white">
             <Link href="/detail">Detail</Link>
           </button>
         </div>
@@ -112,7 +118,7 @@ export default function Home() {
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}{" "}
       {!loading && !error && !name && <RenderAnalytics tableData={tableData} />}
-      <div className="text-center">
+      <div className="text-center l">
         <Spreadsheet darkMode data={tableData} />
       </div>
     </div>

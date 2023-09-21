@@ -12,18 +12,16 @@ export default function Signup() {
     email: "",
     password: "",
   });
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const onSignup = async () => {
     try {
-      {
-        setIsLoading(true);
-        const response = await axios.post("/api/users/signup", user);
-        console.log("Signup Success", response.data);
-        toast.success("Successfully Registered!");
-        router.push("/login");
-      }
+      setIsLoading(true);
+      const response = await axios.post("/api/users/signup", user);
+      console.log("Signup Success", response.data);
+      toast.success("Successfully Registered!");
+      router.push("/login");
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -32,10 +30,11 @@ export default function Signup() {
   };
 
   useEffect(() => {
+    // Enable the Signup button only when all fields have values
     if (
+      user.username.length > 0 &&
       user.email.length > 0 &&
-      user.password.length > 0 &&
-      user.username.length > 0
+      user.password.length > 0
     ) {
       setButtonDisabled(false);
     } else {
@@ -44,44 +43,57 @@ export default function Signup() {
   }, [user]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="min-h-screen flex items-center justify-center">
       <Toaster />
-      {isLoading ? "Processing" : "Signup"}
-      <hr />
-      <label htmlFor="username">username</label>
-      <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-        id="username"
-        type="text"
-        value={user.username}
-        onChange={(e) => setUser({ ...user, username: e.target.value })}
-        placeholder="username"
-      />
-      <label htmlFor="email">email</label>
-      <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-        id="email"
-        type="email"
-        value={user.email}
-        onChange={(e) => setUser({ ...user, email: e.target.value })}
-        placeholder="email"
-      />
-      <label htmlFor="password">password</label>
-      <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-        id="password"
-        type="password"
-        value={user.password}
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
-        placeholder="password"
-      />
-      <button
-        onClick={onSignup}
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
-      >
-        {buttonDisabled ? "No Signup" : "Signup"}
-      </button>
-      Already Signed up? <Link href="/login">Login</Link>
+      <div className="bg-white p-8 rounded-lg shadow-md w-96">
+        <h1 className="text-2xl font-semibold mb-4">Signup</h1>
+        <label htmlFor="username" className="mb-1">
+          Username
+        </label>
+        <input
+          className="p-2 border border-gray-300 rounded-lg mb-4 w-full focus:outline-none focus:border-lime-600 text-black"
+          id="username"
+          type="text"
+          value={user.username}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
+          placeholder="Username"
+        />
+        <label htmlFor="email" className="mb-1">
+          Email
+        </label>
+        <input
+          className="p-2 border border-gray-300 rounded-lg mb-4 w-full focus:outline-none focus:border-lime-600 text-black"
+          id="email"
+          type="email"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          placeholder="Email"
+        />
+        <label htmlFor="password" className="mb-1">
+          Password
+        </label>
+        <input
+          className="p-2 border border-gray-300 rounded-lg mb-4 w-full focus:outline-none focus:border-lime-600 text-black"
+          id="password"
+          type="password"
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          placeholder="Password"
+        />
+        <button
+          onClick={onSignup}
+          className="w-full bg-lime-500 text-white p-2 rounded-lg focus:outline-none hover:bg-lime-600"
+          disabled={buttonDisabled || isLoading}
+        >
+          {isLoading ? "Signing up..." : "Signup"}
+        </button>
+        <p className="mt-4 text-lime-500 text-center">
+          Already signed up?{" "}
+          <Link href="/login" className="text-lime-700">
+            Login
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }
