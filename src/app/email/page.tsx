@@ -10,17 +10,19 @@ import Link from "next/link";
 import { RenderAnalytics } from "./analytics";
 
 export default function Home() {
-  const [tableData, setTableData] = useState([]);
-  const [name, setName] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [loading, setLoading] = useState(false); // New loading state
-  const [error, setError] = useState(null); // New error state
+  const [tableData, setTableData] = useState<Array<Array<{ value: string }>>>(
+    []
+  );
+  const [name, setName] = useState<string>("");
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const backendBaseURL = "https://gold-bright-trout.cyclic.app";
 
   const getData = async () => {
-    setLoading(true); // Set loading to true while fetching data
-    setError(null); // Reset error state
+    setLoading(true);
+    setError(null);
 
     try {
       const response = await fetch(
@@ -37,21 +39,21 @@ export default function Home() {
       const result = await response.json();
 
       setTableData(
-        result?.map((item: { [s: string]: unknown } | ArrayLike<unknown>) => {
+        result?.map((item: { [s: string]: unknown }) => {
           return Object.values(item).map((d, i) => {
-            if (dayjs(d).isValid()) {
+            if (dayjs(d as string).isValid()) {
               return {
-                value: dayjs(d).format("DD/MM/YYYY"),
+                value: dayjs(d as string).format("DD/MM/YYYY"),
               };
             }
-            return { value: d };
+            return { value: (d as string | number).toString() };
           });
-        })
+        }) || []
       );
     } catch (error: any) {
-      setError(error.message); // Set error state if there's an error
+      setError(error.message || "An error occurred");
     } finally {
-      setLoading(false); // Set loading back to false after fetching
+      setLoading(false);
     }
   };
 
@@ -89,8 +91,7 @@ export default function Home() {
             dateFormat={"dd/MM/yyyy"}
             selected={startDate}
             onChange={(date) => {
-              console.log(date);
-              setStartDate(date);
+              setStartDate(date as Date);
             }}
             className="border border-green-500 mx-2 py-2 text-center rounded-md"
           />
@@ -116,9 +117,9 @@ export default function Home() {
         </div>
       </div>
       {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}{" "}
-      {!loading && !error && !name && <RenderAnalytics tableData={tableData} />}
-      <div className="text-center l">
+      {error && <p>Error: {error}</p>}
+      {!loading && !error && name && <RenderAnalytics tableData={tableData} />}
+      <div className="text-center">
         <Spreadsheet darkMode data={tableData} />
       </div>
     </div>

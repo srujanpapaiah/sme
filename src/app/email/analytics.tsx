@@ -1,6 +1,6 @@
 import Card from "../components/emailCard";
 
-export function RenderAnalytics({ tableData }) {
+export function RenderAnalytics({ tableData }: { tableData: any[] }) {
   const smeNames = [
     "Srujan Papaiahgari",
     "Aman Kumar",
