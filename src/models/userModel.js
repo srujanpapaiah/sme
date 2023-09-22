@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "user",
+    required: [true, "Please select the role"],
   },
   forgotPasswordToken: String,
   forgotPasswordTokenExpiry: Date,

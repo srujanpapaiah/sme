@@ -48,7 +48,7 @@ export default function Profile() {
         {data.username === "" ? (
           "Loading"
         ) : (
-          <Link href={`/profile/${data._id}`}>Hi {data.username}</Link>
+          <Link href={`/profile/${data.username}`}>Hi {data.username}</Link>
         )}
       </p>
       <button

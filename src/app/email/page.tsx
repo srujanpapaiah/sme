@@ -8,17 +8,50 @@ import { Spreadsheet } from "react-spreadsheet";
 import Card from "../components/emailCard";
 import Link from "next/link";
 import { RenderAnalytics } from "./analytics";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { toast, Toaster } from "react-hot-toast";
 
 export default function Home() {
+  const router = useRouter();
   const [tableData, setTableData] = useState<Array<Array<{ value: string }>>>(
     []
   );
   const [name, setName] = useState<string>("");
   const [startDate, setStartDate] = useState<Date>(new Date());
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const backendBaseURL = "https://gold-bright-trout.cyclic.app";
+
+  const loadingMessage = (
+    <div className="flex justify-center items-center h-screen ">
+      <h1 className="text-white text-2xl">Loading...</h1>
+    </div>
+  );
+
+  useEffect(() => {
+    const getUser = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get("/api/users/me");
+        if (
+          res.data.data.role === "user" ||
+          res.data.data.role === "doubt" ||
+          res.data.data.role === "discord" ||
+          res.data.data.role === "assignment"
+        ) {
+          toast.error("Not authorized");
+          router.push("/");
+        }
+      } catch (error: any) {
+        setError(error.message || "An error occurred");
+      } finally {
+        setLoading(false);
+      }
+    };
+    getUser();
+  }, []);
 
   const getData = async () => {
     setLoading(true);
@@ -26,7 +59,7 @@ export default function Home() {
 
     try {
       const response = await fetch(
-        backendBaseURL + "/getAll/" + name + "?date=" + startDate,
+        `${backendBaseURL}/getAll/${name}?date=${startDate}`,
         {
           method: "GET",
         }
@@ -63,65 +96,70 @@ export default function Home() {
 
   return (
     <div>
-      <div className="my-10 flex justify-between items-center px-6">
-        <select
-          style={{ padding: 10 }}
-          onChange={(e) => setName(e.target.value)}
-        >
-          <option value="">Select SME</option>
-          <option value="Srujan Papaiahgari">Srujan Papaiahgari</option>
-          <option value="Parag">Parag</option>
-          <option value="Aman Kumar">Aman Kumar</option>
-          <option value="Vidya Sagar">Vidya Sagar</option>
-          <option value="Yashraj">Yashraj</option>
-          <option value="Thomas">Thomas</option>
-          <option value="Sanjay">Sanjay</option>{" "}
-        </select>
-
-        <div>
-          <button
-            onClick={() => {
-              setStartDate(dayjs(startDate).subtract(1, "day").toDate());
-            }}
-            className="border border-green-500 hover:border-green-600 text-white  hover:bg-green-600 px-4 py-2 rounded"
+      <Toaster />
+      {loading ? (
+        loadingMessage
+      ) : (
+        <div className="my-10 flex justify-between items-center px-6">
+          <select
+            style={{ padding: 10 }}
+            onChange={(e) => setName(e.target.value)}
           >
-            &lt;
-          </button>
-          <DatePicker
-            dateFormat={"dd/MM/yyyy"}
-            selected={startDate}
-            onChange={(date) => {
-              setStartDate(date as Date);
-            }}
-            className="border border-green-500 mx-2 py-2 text-center rounded-md"
-          />
-          <button
-            onClick={() => {
-              setStartDate(dayjs(startDate).add(1, "day").toDate());
-            }}
-            className="border border-green-500 hover:border-green-600 text-white  hover:bg-green-600 px-4 py-2 rounded "
-          >
-            &gt;
-          </button>
+            <option value="">Select SME</option>
+            <option value="Srujan Papaiahgari">Srujan Papaiahgari</option>
+            <option value="Parag">Parag</option>
+            <option value="Aman Kumar">Aman Kumar</option>
+            <option value="Vidya Sagar">Vidya Sagar</option>
+            <option value="Yashraj">Yashraj</option>
+            <option value="Thomas">Thomas</option>
+            <option value="Sanjay">Sanjay</option>{" "}
+          </select>
+          <div>
+            <button
+              onClick={() => {
+                setStartDate(dayjs(startDate).subtract(1, "day").toDate());
+              }}
+              className="border border-green-500 hover:border-green-600 text-white  hover:bg-green-600 px-4 py-2 rounded"
+            >
+              &lt;
+            </button>
+            <DatePicker
+              dateFormat={"dd/MM/yyyy"}
+              selected={startDate}
+              onChange={(date) => {
+                setStartDate(date as Date);
+              }}
+              className="border border-green-500 mx-2 py-2 text-center rounded-md"
+            />
+            <button
+              onClick={() => {
+                setStartDate(dayjs(startDate).add(1, "day").toDate());
+              }}
+              className="border border-green-500 hover:border-green-600 text-white  hover:bg-green-600 px-4 py-2 rounded "
+            >
+              &gt;
+            </button>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={getData}
+              className="p-2 border border-green-500 hover:border-green-600 rounded text-white"
+            >
+              Refetch
+            </button>
+            <button className="p-2  border border-green-500 hover:border-green-600 rounded text-white">
+              <Link href="/detail">Detail</Link>
+            </button>
+          </div>
         </div>
-        <div className="flex gap-2">
-          <button
-            onClick={getData}
-            className="p-2 border border-green-500 hover:border-green-600 rounded text-white"
-          >
-            Refetch
-          </button>
-          <button className="p-2  border border-green-500 hover:border-green-600 rounded text-white">
-            <Link href="/detail">Detail</Link>
-          </button>
-        </div>
-      </div>
-      {loading && <p>Loading...</p>}
+      )}
       {error && <p>Error: {error}</p>}
       {!loading && !error && !name && <RenderAnalytics tableData={tableData} />}
-      <div className="text-center">
-        <Spreadsheet darkMode data={tableData} />
-      </div>
+      {!loading && (
+        <div className="text-center">
+          <Spreadsheet darkMode data={tableData} />
+        </div>
+      )}
     </div>
   );
 }

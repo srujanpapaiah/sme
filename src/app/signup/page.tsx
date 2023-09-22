@@ -10,8 +10,10 @@ export default function Signup() {
   const [user, setUser] = useState({
     username: "",
     email: "",
+    role: "",
     password: "",
   });
+
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,11 +21,15 @@ export default function Signup() {
     try {
       setIsLoading(true);
       const response = await axios.post("/api/users/signup", user);
-      console.log("Signup Success", response.data);
       toast.success("Successfully Registered!");
       router.push("/login");
     } catch (error: any) {
-      toast.error(error.message);
+      setIsLoading(false);
+      if (error.response && error.response.status == 400) {
+        toast.error("User Already Exists");
+      } else {
+        toast.error("An error occured during signup.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -34,6 +40,7 @@ export default function Signup() {
     if (
       user.username.length > 0 &&
       user.email.length > 0 &&
+      user.role.length > 0 &&
       user.password.length > 0
     ) {
       setButtonDisabled(false);
@@ -69,6 +76,24 @@ export default function Signup() {
           onChange={(e) => setUser({ ...user, email: e.target.value })}
           placeholder="Email"
         />
+        <label htmlFor="role" className="mb-1">
+          {" "}
+          Role
+        </label>
+        <select
+          className="p-2 border border-gray-300 rounded-lg mb-4 w-full focus:outline-none focus:border-lime-600 text-black"
+          id="role"
+          value={user.role}
+          onChange={(e) => setUser({ ...user, role: e.target.value })}
+        >
+          <option value="user"></option>
+          <option value="email">Email</option>
+          <option value="doubt">Doubts</option>
+          <option value="discord">Discord</option>
+          <option value="assignment">Assignments</option>
+          <option value="revechat">Reve Chat</option>
+        </select>
+
         <label htmlFor="password" className="mb-1">
           Password
         </label>

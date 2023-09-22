@@ -49,6 +49,7 @@ const Navbar = () => {
     try {
       await axios.get("/api/users/logout");
       toast.success("Logout Successful");
+      setIsLoggedIn(false);
       router.push("/");
     } catch (error: any) {
       toast.error(error.message);
