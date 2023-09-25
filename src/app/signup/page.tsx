@@ -28,8 +28,8 @@ export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
 
   const onSignup = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const response = await axios.post("/api/users/signup", user);
       toast.success("Successfully Registered!");
       router.push("/login");

@@ -23,8 +23,8 @@ export default function Login() {
   }
 
   const onLogin = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const response = await axios.post("/api/users/login", user);
       toast.success("Login Success");
       router.push("/");
