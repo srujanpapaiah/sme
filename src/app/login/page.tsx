@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
@@ -13,14 +13,16 @@ export default function Login() {
     email: "",
     password: "",
   });
-
   // Initialize the state on the server
-  if (typeof window === "undefined") {
-    setUser({
-      email: "",
-      password: "",
-    });
-  }
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      setUser({
+        email: "",
+
+        password: "",
+      });
+    }
+  }, []);
 
   const onLogin = async () => {
     setIsLoading(true);

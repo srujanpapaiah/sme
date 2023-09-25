@@ -15,14 +15,16 @@ export default function Signup() {
   });
 
   // Initialize the state on the server
-  if (typeof window === "undefined") {
-    setUser({
-      username: "",
-      email: "",
-      role: "",
-      password: "",
-    });
-  }
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      setUser({
+        username: "",
+        email: "",
+        role: "",
+        password: "",
+      });
+    }
+  }, []);
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
