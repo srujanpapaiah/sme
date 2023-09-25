@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { NextRequest, NextResponse } from "next/server";
 import { toast, Toaster } from "react-hot-toast";
-const { Button } = require("@cred/neopop-web/lib/components");
+const { Button, Pointer } = require("@cred/neopop-web/lib/components");
 // eslint-disable-next-line @next/next/no-async-client-component
 export default function Dashboard(req: NextRequest) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
