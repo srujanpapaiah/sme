@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { NextRequest, NextResponse } from "next/server";
 import { toast, Toaster } from "react-hot-toast";
+import { Pointer, Button } from "@cred/neopop-web/lib/components";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 export default function Dashboard(req: NextRequest) {
@@ -66,13 +67,43 @@ export default function Dashboard(req: NextRequest) {
                 : ""
             }`}
           </h1>
+          <span className="flex items-center gap-2">
+            <h1>go to</h1>
+            <Pointer color="#06C270" />
+          </span>
+
           <div className="">
             {data.role === "email" ? (
               <Link href="/email">
-                <span>go to </span>
-                <button className="border border-lime-500 px-6 py-3 rounded text-lime-500 hover:bg-lime-500 hover:text-white transition duration-300">
+                <Button
+                  colorConfig={{
+                    backgroundColor: "#0d0d0d",
+                    borderColor: "#E5FE40",
+                    color: "#ffffff",
+                    disabledColors: {
+                      backgroundColor: "#8A8A8A",
+                      color: "rgba(255,255,255, 0.5)",
+                      edgeColors: {
+                        bottom: "#E0E0E0",
+                        left: "transparent",
+                        right: "#EFEFEF",
+                        top: "transparent",
+                      },
+                    },
+                    edgeColors: {
+                      bottom: "#67721F",
+                      left: "transparent",
+                      right: "#A2B42D",
+                      top: "transparent",
+                    },
+                  }}
+                  colorMode="dark"
+                  kind="elevated"
+                  size="big"
+                  variant="secondary"
+                >
                   Emails
-                </button>
+                </Button>
               </Link>
             ) : null}
             {data.role === "doubts" ? (

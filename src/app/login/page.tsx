@@ -14,6 +14,14 @@ export default function Login() {
     password: "",
   });
 
+  // Initialize the state on the server
+  if (typeof window === "undefined") {
+    setUser({
+      email: "",
+      password: "",
+    });
+  }
+
   const onLogin = async () => {
     try {
       setIsLoading(true);
