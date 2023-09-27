@@ -30,5 +30,7 @@ export const config = {
     "/login",
     "/signup",
     "/verifyemail",
+    "/rules",
+    "/rules/(.*)",
   ],
 };

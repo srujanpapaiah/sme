@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { toast, Toaster } from "react-hot-toast";
 const { Button, Pointer } = require("@cred/neopop-web/lib/components");
+
 // eslint-disable-next-line @next/next/no-async-client-component
 
 export default function Dashboard() {

@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { toast, Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const router = useRouter();
+  const path = usePathname();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -27,14 +28,17 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("/api/users/me");
-        setIsLoggedIn(true);
-        setData(res.data.data);
-        setIsLoading(false); // Set isLoading to false when data is fetched successfully.
+        if (path !== "/login" && path !== "/signup") {
+          const res = await axios.get("/api/users/me");
+          setData(res.data.data);
+          setIsLoggedIn(true);
+        }
       } catch (error) {
         setIsLoggedIn(false);
         setIsLoading(false);
         // Handle error gracefully if needed.
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -57,18 +61,28 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex justify-between items-center bg-lime-500 h-10 px-6">
+    <div className="flex justify-between items-center bg-lime-500 h-10 px-6">
       <Toaster />
 
-      <div className="text-white">
-        <Link href="/">SME Portal</Link>
+      <div>
+        <Link href="/">
+          <strong>SME Portal</strong>
+        </Link>
       </div>
-      <div className="text-white relative">
+      <div>
+        {isLoggedIn ? (
+          <div>
+            <Link href="/rules">
+              <strong>Rules</strong>
+            </Link>
+          </div>
+        ) : null}
+      </div>
+      <div className=" z-10">
         {isLoggedIn ? (
           <div>
             <button className="cursor-pointer" onClick={toggleDropdown}>
-              Hi {data.username} &#9662;{" "}
-              {/* Display a down arrow for the dropdown */}
+              <strong> Hi {data.username} &#9662; </strong>
             </button>
             {isDropdownOpen && (
               <div className="absolute bg-white text-black shadow-md mt-1 p-2 rounded-lg">
@@ -94,7 +108,7 @@ const Navbar = () => {
           <Link href="/signup">Signup</Link>
         )}
       </div>
-    </header>
+    </div>
   );
 };
 

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
-import Navbar from "../components/Navbar";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,12 +12,12 @@ export default function Login() {
     email: "",
     password: "",
   });
+
   // Initialize the state on the server
   useEffect(() => {
     if (typeof window === "undefined") {
       setUser({
         email: "",
-
         password: "",
       });
     }

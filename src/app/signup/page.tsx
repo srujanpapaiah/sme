@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
+import { usePathname } from "next/navigation";
 
 export default function Signup() {
+  const path = usePathname();
   const router = useRouter();
   const [user, setUser] = React.useState({
     username: "",
@@ -32,9 +34,11 @@ export default function Signup() {
   const onSignup = async () => {
     setIsLoading(true);
     try {
+      // if (path !== "/signup") {
       const response = await axios.post("/api/users/signup", user);
       toast.success("Successfully Registered!");
       router.push("/login");
+      // }
     } catch (error: any) {
       setIsLoading(false);
       if (error.response && error.response.status == 400) {
@@ -97,6 +101,7 @@ export default function Signup() {
           id="role"
           value={user.role}
           onChange={(e) => setUser({ ...user, role: e.target.value })}
+          required
         >
           <option value="user"></option>
           <option value="email">Email</option>
