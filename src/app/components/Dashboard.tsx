@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { toast, Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 const { Button, Pointer } = require("@cred/neopop-web/lib/components");
 
 // eslint-disable-next-line @next/next/no-async-client-component
@@ -60,10 +60,12 @@ export default function Dashboard() {
         <div className="flex justify-between px-8">
           <Toaster />
           <h1 className="text-3xl mb-4">
-            {`Howdy ${data.username},  (${data.role})${
-              data.role === "revechat"
-                ? "so you cannot access the remaining departments data"
-                : ""
+            {`Howdy ${data.username}, ${(<i>`${data.role}`</i>)} ${
+              data.role === "revechat" ? (
+                <i>revechat agents cannot see their analytics here.</i>
+              ) : (
+                ""
+              )
             }`}
           </h1>
           <span className="flex items-center gap-2">
@@ -107,17 +109,101 @@ export default function Dashboard() {
             ) : null}
             {data.role === "doubts" ? (
               <Link href="/doubts">
-                <button className="border border-lime-500 px-6 py-3 rounded text-lime-500 hover:bg-lime-500 hover:text-white transition duration-300">
+                <Button
+                  colorConfig={{
+                    backgroundColor: "#0d0d0d",
+                    borderColor: "#E5FE40",
+                    color: "#ffffff",
+                    disabledColors: {
+                      backgroundColor: "#8A8A8A",
+                      color: "rgba(255,255,255, 0.5)",
+                      edgeColors: {
+                        bottom: "#E0E0E0",
+                        left: "transparent",
+                        right: "#EFEFEF",
+                        top: "transparent",
+                      },
+                    },
+                    edgeColors: {
+                      bottom: "#67721F",
+                      left: "transparent",
+                      right: "#A2B42D",
+                      top: "transparent",
+                    },
+                  }}
+                  colorMode="dark"
+                  kind="elevated"
+                  size="big"
+                  variant="secondary"
+                >
                   Doubts
-                </button>
+                </Button>
+              </Link>
+            ) : null}
+            {data.role === "discord" ? (
+              <Link href="/discord">
+                <Button
+                  colorConfig={{
+                    backgroundColor: "#0d0d0d",
+                    borderColor: "#E5FE40",
+                    color: "#ffffff",
+                    disabledColors: {
+                      backgroundColor: "#8A8A8A",
+                      color: "rgba(255,255,255, 0.5)",
+                      edgeColors: {
+                        bottom: "#E0E0E0",
+                        left: "transparent",
+                        right: "#EFEFEF",
+                        top: "transparent",
+                      },
+                    },
+                    edgeColors: {
+                      bottom: "#67721F",
+                      left: "transparent",
+                      right: "#A2B42D",
+                      top: "transparent",
+                    },
+                  }}
+                  colorMode="dark"
+                  kind="elevated"
+                  size="big"
+                  variant="secondary"
+                >
+                  Discord
+                </Button>
               </Link>
             ) : null}
             {data.role === "assignment" ? (
-              <Link href="/assignments">
-                <span>go to </span>
-                <button className="border border-lime-500 px-6 py-3 rounded text-lime-500 hover:bg-lime-500 hover:text-white transition duration-300">
+              <Link href="/assignment">
+                <Button
+                  colorConfig={{
+                    backgroundColor: "#0d0d0d",
+                    borderColor: "#E5FE40",
+                    color: "#ffffff",
+                    disabledColors: {
+                      backgroundColor: "#8A8A8A",
+                      color: "rgba(255,255,255, 0.5)",
+                      edgeColors: {
+                        bottom: "#E0E0E0",
+                        left: "transparent",
+                        right: "#EFEFEF",
+                        top: "transparent",
+                      },
+                    },
+                    edgeColors: {
+                      bottom: "#67721F",
+                      left: "transparent",
+                      right: "#A2B42D",
+                      top: "transparent",
+                    },
+                  }}
+                  colorMode="dark"
+                  kind="elevated"
+                  size="big"
+                  variant="secondary"
+                >
                   Assignments
-                </button>
+                </Button>
               </Link>
             ) : null}
           </div>
