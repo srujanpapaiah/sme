@@ -60,7 +60,7 @@ export default function Dashboard() {
         <div className="flex justify-between px-8">
           <Toaster />
           <h1 className="text-3xl mb-4">
-            {`Howdy ${data.username}, ${(<i>`${data.role}`</i>)} ${
+            {`Howdy ${data.username}, ${data.role} ${
               data.role === "revechat" ? (
                 <i>revechat agents cannot see their analytics here.</i>
               ) : (
