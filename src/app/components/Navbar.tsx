@@ -54,7 +54,7 @@ const Navbar = () => {
       await axios.get("/api/users/logout");
       toast.success("Logout Successful");
       setIsLoggedIn(false);
-      router.push("/");
+      router.push("/login");
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -85,13 +85,20 @@ const Navbar = () => {
               <strong> Hi {data.username} &#9662; </strong>
             </button>
             {isDropdownOpen && (
-              <div className="absolute bg-white text-black shadow-md mt-1 p-2 rounded-lg">
-                <Link href="/profile">Profile</Link>
+              <div className="absolute bg-white text-black shadow-md mt-1 p-2 rounded-lg w-48">
+                <Link
+                  href="/profile"
+                  className="block px-4 py-2 hover:bg-blue-100 hover:text-blue-500 transition-all duration-300"
+                >
+                  Profile
+                </Link>
+                <hr className="my-2 border-gray-300" />
                 <button
                   onClick={() => {
                     toggleDropdown();
                     handleLogout();
                   }}
+                  className="block w-full text-left px-4 py-2 text-red-500 hover:bg-red-100 hover:text-red-700 rounded-lg focus:outline-none transition-all duration-300"
                 >
                   Logout
                 </button>
