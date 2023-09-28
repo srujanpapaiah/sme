@@ -6,6 +6,8 @@ import Link from "next/link";
 import { toast, Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+
 import Form from "./Form";
 
 const Navbar = () => {
@@ -94,18 +96,33 @@ const Navbar = () => {
               setModalVisible={setModalVisible}
               data={data}
             />
-            <button
-              className="mr-8 px-4 py-2 text-[#E6E9EC] text-[#B8BBBF] bg-[#4E4F50] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300"
-              onClick={openModal}
-            >
-              New Issue
-            </button>
-            <button
-              className="cursor-pointer text-white"
-              onClick={toggleDropdown}
-            >
-              Hi {data.username} &#9662;
-            </button>
+            <div className="flex ">
+              <button
+                className="mr-8 px-4 py-2 text-[#E6E9EC] text-[#B8BBBF] bg-[#4E4F50] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300"
+                onClick={openModal}
+              >
+                New Ticket
+              </button>
+              <button
+                className="cursor-pointer text-white"
+                onClick={toggleDropdown}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="#E6E9EC"
+                  className="w-10 h-10"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </button>
+            </div>
             {isDropdownOpen && (
               <div className="absolute top-12 right-0 bg-[#242526] text-black shadow-md mt-1 p-2 rounded-lg w-48 z-10">
                 <Link
@@ -129,7 +146,7 @@ const Navbar = () => {
           </div>
         ) : pathname !== "/login" ? (
           isLoading ? (
-            "Loading"
+            <h1 className="text-white text-md">Loading...</h1>
           ) : (
             <Link href="/login" className="text-white">
               Login

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
+import Image from "next/image";
 const { Button, Pointer } = require("@cred/neopop-web/lib/components");
 
 // eslint-disable-next-line @next/next/no-async-client-component
@@ -11,6 +12,25 @@ const { Button, Pointer } = require("@cred/neopop-web/lib/components");
 export default function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [tickets, setTickets] = useState([
+    {
+      _id: "",
+      creator: "",
+      creatorId: "",
+      department: "",
+      subject: "",
+      description: "",
+      priority: "low",
+      date: null,
+      studentName: "",
+      studentEmail: "",
+      studentPhone: "",
+      courseEnrolled: "",
+      courseInvoice: "",
+      createdAt: null,
+      __v: 0,
+    },
+  ]);
 
   const [data, setData] = useState({
     _id: "",
@@ -25,9 +45,14 @@ export default function Dashboard() {
     const fetchUser = async () => {
       try {
         const res = await axios.get("/api/users/me");
+        const ticketsRes = await axios.get("/api/tickets/all");
+
         const userData = res.data.data;
+        const ticketsData = ticketsRes.data.data;
         setIsLoggedIn(true);
         setData(userData);
+        setTickets(ticketsData);
+        console.log(ticketsData);
       } catch (error) {
         console.error("Error fetching user data:", error);
         setIsLoggedIn(false);
@@ -71,12 +96,12 @@ export default function Dashboard() {
                 )
               }`}
             </h1>
-            <span className="flex items-center gap-2">
-              <h1>go to</h1>
-              <Pointer color="#06C270" />
-            </span>
 
-            <div className="">
+            <div className="flex gap-4">
+              <div className="flex items-center gap-2">
+                <h1>go to</h1>
+                <Pointer color="#06C270" />
+              </div>
               {data.role === "email" ? (
                 <Link href="/email">
                   <Button
@@ -209,6 +234,45 @@ export default function Dashboard() {
                   </Button>
                 </Link>
               ) : null}
+            </div>
+          </div>
+          {/* Tickets */}
+          <div className="flex gap-4 px-8 mt-10">
+            <div className="flex-grow bg-[#3A3B3C] rounded-lg shadow-lg p-6">
+              <h2 className="text-2xl font-semibold mb-4">Support Tickets</h2>
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead>
+                    <tr>
+                      <th className="text-left">Subject</th>
+                      <th className="text-left">Priority</th>
+                      <th className="text-left">Email</th>
+                      <th className="text-left">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tickets.map((ticket) => (
+                      <tr key={ticket._id}>
+                        <td className="border border-gray-300 p-2">
+                          {ticket.subject}
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          {ticket.priority}
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          {ticket.studentEmail}
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          {ticket.description}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="flex-grow bg-[#3A3B3C] rounded-lg shadow-lg p-6">
+              <h2 className="text-2xl font-semibold mb-4">Support Tickets</h2>
             </div>
           </div>
         </div>
