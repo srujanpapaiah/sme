@@ -11,6 +11,7 @@ const { Button, Pointer } = require("@cred/neopop-web/lib/components");
 export default function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
   const [data, setData] = useState({
     _id: "",
     username: "",
@@ -55,157 +56,160 @@ export default function Dashboard() {
   // }
 
   return (
-    <div className="flex flex-col mt-10  text-white">
+    <div className="flex flex-col mt-10  text-[#CDD0D4] ">
       {isLoggedIn ? (
-        <div className="flex justify-between px-8">
-          <Toaster />
-          <h1 className="text-3xl mb-4">
-            {`Howdy, ${data.username}! ${
-              data.role === "revechat" ? (
-                <i>revechat agents cannot see their analytics here.</i>
-              ) : (
-                ""
-              )
-            }`}
-          </h1>
-          <span className="flex items-center gap-2">
-            <h1>go to</h1>
-            <Pointer color="#06C270" />
-          </span>
+        <div>
+          {" "}
+          <div className="flex justify-between px-8">
+            <Toaster />
+            <h1 className="text-3xl mb-4">
+              {`Howdy, ${data.username}! ${
+                data.role === "revechat" ? (
+                  <i>revechat agents cannot see their analytics here.</i>
+                ) : (
+                  ""
+                )
+              }`}
+            </h1>
+            <span className="flex items-center gap-2">
+              <h1>go to</h1>
+              <Pointer color="#06C270" />
+            </span>
 
-          <div className="">
-            {data.role === "email" ? (
-              <Link href="/email">
-                <Button
-                  colorConfig={{
-                    backgroundColor: "#0d0d0d",
-                    borderColor: "#E5FE40",
-                    color: "#ffffff",
-                    disabledColors: {
-                      backgroundColor: "#8A8A8A",
-                      color: "rgba(255,255,255, 0.5)",
+            <div className="">
+              {data.role === "email" ? (
+                <Link href="/email">
+                  <Button
+                    colorConfig={{
+                      backgroundColor: "#0d0d0d",
+                      borderColor: "#E5FE40",
+                      color: "#ffffff",
+                      disabledColors: {
+                        backgroundColor: "#8A8A8A",
+                        color: "rgba(255,255,255, 0.5)",
+                        edgeColors: {
+                          bottom: "#E0E0E0",
+                          left: "transparent",
+                          right: "#EFEFEF",
+                          top: "transparent",
+                        },
+                      },
                       edgeColors: {
-                        bottom: "#E0E0E0",
+                        bottom: "#67721F",
                         left: "transparent",
-                        right: "#EFEFEF",
+                        right: "#A2B42D",
                         top: "transparent",
                       },
-                    },
-                    edgeColors: {
-                      bottom: "#67721F",
-                      left: "transparent",
-                      right: "#A2B42D",
-                      top: "transparent",
-                    },
-                  }}
-                  colorMode="dark"
-                  kind="elevated"
-                  size="big"
-                  variant="secondary"
-                >
-                  Emails
-                </Button>
-              </Link>
-            ) : null}
-            {data.role === "doubts" ? (
-              <Link href="/doubts">
-                <Button
-                  colorConfig={{
-                    backgroundColor: "#0d0d0d",
-                    borderColor: "#E5FE40",
-                    color: "#ffffff",
-                    disabledColors: {
-                      backgroundColor: "#8A8A8A",
-                      color: "rgba(255,255,255, 0.5)",
+                    }}
+                    colorMode="dark"
+                    kind="elevated"
+                    size="big"
+                    variant="secondary"
+                  >
+                    Emails
+                  </Button>
+                </Link>
+              ) : null}
+              {data.role === "doubts" ? (
+                <Link href="/doubts">
+                  <Button
+                    colorConfig={{
+                      backgroundColor: "#0d0d0d",
+                      borderColor: "#E5FE40",
+                      color: "#ffffff",
+                      disabledColors: {
+                        backgroundColor: "#8A8A8A",
+                        color: "rgba(255,255,255, 0.5)",
+                        edgeColors: {
+                          bottom: "#E0E0E0",
+                          left: "transparent",
+                          right: "#EFEFEF",
+                          top: "transparent",
+                        },
+                      },
                       edgeColors: {
-                        bottom: "#E0E0E0",
+                        bottom: "#67721F",
                         left: "transparent",
-                        right: "#EFEFEF",
+                        right: "#A2B42D",
                         top: "transparent",
                       },
-                    },
-                    edgeColors: {
-                      bottom: "#67721F",
-                      left: "transparent",
-                      right: "#A2B42D",
-                      top: "transparent",
-                    },
-                  }}
-                  colorMode="dark"
-                  kind="elevated"
-                  size="big"
-                  variant="secondary"
-                >
-                  Doubts
-                </Button>
-              </Link>
-            ) : null}
-            {data.role === "discord" ? (
-              <Link href="/discord">
-                <Button
-                  colorConfig={{
-                    backgroundColor: "#0d0d0d",
-                    borderColor: "#E5FE40",
-                    color: "#ffffff",
-                    disabledColors: {
-                      backgroundColor: "#8A8A8A",
-                      color: "rgba(255,255,255, 0.5)",
+                    }}
+                    colorMode="dark"
+                    kind="elevated"
+                    size="big"
+                    variant="secondary"
+                  >
+                    Doubts
+                  </Button>
+                </Link>
+              ) : null}
+              {data.role === "discord" ? (
+                <Link href="/discord">
+                  <Button
+                    colorConfig={{
+                      backgroundColor: "#0d0d0d",
+                      borderColor: "#E5FE40",
+                      color: "#ffffff",
+                      disabledColors: {
+                        backgroundColor: "#8A8A8A",
+                        color: "rgba(255,255,255, 0.5)",
+                        edgeColors: {
+                          bottom: "#E0E0E0",
+                          left: "transparent",
+                          right: "#EFEFEF",
+                          top: "transparent",
+                        },
+                      },
                       edgeColors: {
-                        bottom: "#E0E0E0",
+                        bottom: "#67721F",
                         left: "transparent",
-                        right: "#EFEFEF",
+                        right: "#A2B42D",
                         top: "transparent",
                       },
-                    },
-                    edgeColors: {
-                      bottom: "#67721F",
-                      left: "transparent",
-                      right: "#A2B42D",
-                      top: "transparent",
-                    },
-                  }}
-                  colorMode="dark"
-                  kind="elevated"
-                  size="big"
-                  variant="secondary"
-                >
-                  Discord
-                </Button>
-              </Link>
-            ) : null}
-            {data.role === "assignment" ? (
-              <Link href="/assignment">
-                <Button
-                  colorConfig={{
-                    backgroundColor: "#0d0d0d",
-                    borderColor: "#E5FE40",
-                    color: "#ffffff",
-                    disabledColors: {
-                      backgroundColor: "#8A8A8A",
-                      color: "rgba(255,255,255, 0.5)",
+                    }}
+                    colorMode="dark"
+                    kind="elevated"
+                    size="big"
+                    variant="secondary"
+                  >
+                    Discord
+                  </Button>
+                </Link>
+              ) : null}
+              {data.role === "assignment" ? (
+                <Link href="/assignment">
+                  <Button
+                    colorConfig={{
+                      backgroundColor: "#0d0d0d",
+                      borderColor: "#E5FE40",
+                      color: "#ffffff",
+                      disabledColors: {
+                        backgroundColor: "#8A8A8A",
+                        color: "rgba(255,255,255, 0.5)",
+                        edgeColors: {
+                          bottom: "#E0E0E0",
+                          left: "transparent",
+                          right: "#EFEFEF",
+                          top: "transparent",
+                        },
+                      },
                       edgeColors: {
-                        bottom: "#E0E0E0",
+                        bottom: "#67721F",
                         left: "transparent",
-                        right: "#EFEFEF",
+                        right: "#A2B42D",
                         top: "transparent",
                       },
-                    },
-                    edgeColors: {
-                      bottom: "#67721F",
-                      left: "transparent",
-                      right: "#A2B42D",
-                      top: "transparent",
-                    },
-                  }}
-                  colorMode="dark"
-                  kind="elevated"
-                  size="big"
-                  variant="secondary"
-                >
-                  Assignments
-                </Button>
-              </Link>
-            ) : null}
+                    }}
+                    colorMode="dark"
+                    kind="elevated"
+                    size="big"
+                    variant="secondary"
+                  >
+                    Assignments
+                  </Button>
+                </Link>
+              ) : null}
+            </div>
           </div>
         </div>
       ) : (

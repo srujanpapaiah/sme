@@ -6,6 +6,7 @@ import Link from "next/link";
 import { toast, Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import Form from "./Form";
 
 const Navbar = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const Navbar = () => {
 
   const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -45,6 +47,10 @@ const Navbar = () => {
     fetchUser();
   }, []);
 
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -61,34 +67,50 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center bg-lime-500 h-10 px-6">
+    <div className="bg-[#242526] h-16 px-6 flex justify-between items-center">
       <Toaster />
-
       <div>
-        <Link href="/">
-          <strong>SME Portal</strong>
+        <Link href="/" className="text-white font-bold text-xl">
+          SME Portal
         </Link>
       </div>
       <div>
         {isLoggedIn ? (
-          <div>
-            <Link href="/rules">
-              <strong>Rules</strong>
+          <div className="flex gap-2">
+            <Link href="/rules" className="text-white">
+              Rules
+            </Link>
+            <Link href="/latest" className="text-white">
+              Latest
             </Link>
           </div>
         ) : null}
       </div>
-      <div className=" z-10">
+      <div className="flex items-center relative">
         {isLoggedIn ? (
           <div>
-            <button className="cursor-pointer" onClick={toggleDropdown}>
-              <strong> Hi {data.username} &#9662; </strong>
+            <Form
+              modalVisible={modalVisible}
+              setModalVisible={setModalVisible}
+              data={data}
+            />
+            <button
+              className="mr-8 px-4 py-2 text-[#E6E9EC] text-[#B8BBBF] bg-[#4E4F50] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300"
+              onClick={openModal}
+            >
+              New Issue
+            </button>
+            <button
+              className="cursor-pointer text-white"
+              onClick={toggleDropdown}
+            >
+              Hi {data.username} &#9662;
             </button>
             {isDropdownOpen && (
-              <div className="absolute bg-white text-black shadow-md mt-1 p-2 rounded-lg w-48">
+              <div className="absolute top-12 right-0 bg-[#242526] text-black shadow-md mt-1 p-2 rounded-lg w-48 z-10">
                 <Link
                   href="/profile"
-                  className="block px-4 py-2 hover:bg-blue-100 hover:text-blue-500 transition-all duration-300"
+                  className="block px-4 py-2 text-[#E6E9EC] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300"
                 >
                   Profile
                 </Link>
@@ -98,7 +120,7 @@ const Navbar = () => {
                     toggleDropdown();
                     handleLogout();
                   }}
-                  className="block w-full text-left px-4 py-2 text-red-500 hover:bg-red-100 hover:text-red-700 rounded-lg focus:outline-none transition-all duration-300"
+                  className="block w-full text-left px-4 py-2 text-[#E6E9EC] hover:bg-[#3A3B3C] rounded-lg focus:outline-none transition-all duration-300"
                 >
                   Logout
                 </button>
@@ -109,10 +131,14 @@ const Navbar = () => {
           isLoading ? (
             "Loading"
           ) : (
-            <Link href="/login">Login</Link>
+            <Link href="/login" className="text-white">
+              Login
+            </Link>
           )
         ) : (
-          <Link href="/signup">Signup</Link>
+          <Link href="/signup" className="text-white">
+            Signup
+          </Link>
         )}
       </div>
     </div>
