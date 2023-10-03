@@ -100,11 +100,15 @@ const Form = ({ modalVisible, setModalVisible, data }) => {
           <Toaster />
           <div className="bg-[#3A3B3C] p-6 rounded-lg shadow-md w-3/6 mt-80">
             <button
-              className="close text-gray-500 float-right text-2xl font-bold hover:text-black focus:text-black focus:outline-none"
+              className="close text-[#e74f4f] float-right  text-3xl font-bold hover:text-black focus:text-black focus:outline-none"
               onClick={closeModal}
             >
               &times;
             </button>
+            <h1 className="text-3xl text-[#CDD0D4] text-center font-bold">
+              Raise a Ticket
+            </h1>
+
             <form action="#" method="post" encType="multipart/form-data">
               {/* Ticket Subject */}
               <div className="mb-4">

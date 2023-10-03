@@ -7,15 +7,22 @@ import { toast, Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+// import { useDispatch } from "react-redux";
+// import { logIn } from "@/redux/features/authSlice";
 
 import Form from "./Form";
+import { AppDispatch, useAppSelector } from "@/redux/store";
 
 const Navbar = () => {
   const router = useRouter();
   const path = usePathname();
+  // const dispatch = useDispatch<AppDispatch>();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  // const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
+  const isAuth = true;
+
   const [data, setData] = useState({
     _id: "",
     username: "",
@@ -30,24 +37,30 @@ const Navbar = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        if (path !== "/login" && path !== "/signup") {
-          const res = await axios.get("/api/users/me");
-          setData(res.data.data);
-          setIsLoggedIn(true);
-        }
-      } catch (error) {
-        setIsLoggedIn(false);
-        setIsLoading(false);
-        // Handle error gracefully if needed.
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    console.log("Navbar useEffect");
+    // const fetchUser = async () => {
+    //   try {
+    //     if (path !== "/login" && path !== "/signup") {
+    //       const res = await axios.get("/api/users/me");
+    //       setData(res.data.data);
+    //       dispatch(logIn(true));
+    //       setIsLoading(false);
+    //       setIsLoggedIn(isAuth);
+    //     }
+    //   } catch (error) {
+    //     setIsLoggedIn(false);
+    //     // Handle error gracefully if needed.
+    //   } finally {
+    //     setIsLoading(false); // Set isLoading to false regardless of success or error.
+    //   }
+    // };
 
-    fetchUser();
+    // fetchUser();
   }, []);
+
+  useEffect(() => {
+    console.log("Navbar");
+  });
 
   const openModal = () => {
     setModalVisible(true);
@@ -71,23 +84,29 @@ const Navbar = () => {
   return (
     <div className="bg-[#242526] h-16 px-6 flex justify-between items-center">
       <Toaster />
-      <div>
+      <div className="flex items-center gap-8">
         <Link href="/" className="text-white font-bold text-xl">
-          SME Portal
+          <Image
+            src={"/PWSkills-white.png"}
+            alt={""}
+            width={150}
+            height={50}
+            priority={false}
+          />
         </Link>
+        {"Hello"}
+
+        <div>
+          {isLoggedIn ? (
+            <div className="flex gap-8 text-md font-semibold text-[#B8BBBF]">
+              <Link href="/rules">Rules</Link>
+              <Link href="/pwians">PWians</Link>
+              <Link href="/assets">Assets</Link>
+            </div>
+          ) : null}
+        </div>
       </div>
-      <div>
-        {isLoggedIn ? (
-          <div className="flex gap-2">
-            <Link href="/rules" className="text-white">
-              Rules
-            </Link>
-            <Link href="/latest" className="text-white">
-              Latest
-            </Link>
-          </div>
-        ) : null}
-      </div>
+
       <div className="flex items-center relative">
         {isLoggedIn ? (
           <div>
@@ -98,7 +117,7 @@ const Navbar = () => {
             />
             <div className="flex ">
               <button
-                className="mr-8 px-4 py-2 text-[#E6E9EC] text-[#B8BBBF] bg-[#4E4F50] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300"
+                className="mr-8 px-4 py-2 text-[#E6E9EC]  bg-[#4E4F50] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300"
                 onClick={openModal}
               >
                 New Ticket

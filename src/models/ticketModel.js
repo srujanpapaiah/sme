@@ -48,6 +48,11 @@ const ticketSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
   },
+  ticketStatus: {
+    type: String,
+    enum: ["open", "in review", "closed"],
+    default: "open",
+  },
 });
 
 const Ticket = mongoose.models.Ticket || mongoose.model("Ticket", ticketSchema);
