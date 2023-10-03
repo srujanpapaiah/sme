@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
+import Image from "next/image";
 const { Button, Pointer } = require("@cred/neopop-web/lib/components");
 
 // eslint-disable-next-line @next/next/no-async-client-component
@@ -11,6 +12,26 @@ const { Button, Pointer } = require("@cred/neopop-web/lib/components");
 export default function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [tickets, setTickets] = useState([
+    {
+      _id: "",
+      creator: "",
+      creatorId: "",
+      department: "",
+      subject: "",
+      description: "",
+      priority: "low",
+      date: null,
+      studentName: "",
+      studentEmail: "",
+      studentPhone: "",
+      courseEnrolled: "",
+      courseInvoice: "",
+      createdAt: null,
+      __v: 0,
+    },
+  ]);
+
   const [data, setData] = useState({
     _id: "",
     username: "",
@@ -24,9 +45,14 @@ export default function Dashboard() {
     const fetchUser = async () => {
       try {
         const res = await axios.get("/api/users/me");
+        const ticketsRes = await axios.get("/api/tickets/all");
+
         const userData = res.data.data;
+        const ticketsData = ticketsRes.data.data;
         setIsLoggedIn(true);
         setData(userData);
+        setTickets(ticketsData);
+        console.log(ticketsData);
       } catch (error) {
         console.error("Error fetching user data:", error);
         setIsLoggedIn(false);
@@ -55,157 +81,199 @@ export default function Dashboard() {
   // }
 
   return (
-    <div className="flex flex-col mt-10  text-white">
+    <div className="flex flex-col mt-10  text-[#CDD0D4] ">
       {isLoggedIn ? (
-        <div className="flex justify-between px-8">
-          <Toaster />
-          <h1 className="text-3xl mb-4">
-            {`Howdy, ${data.username}! ${
-              data.role === "revechat" ? (
-                <i>revechat agents cannot see their analytics here.</i>
-              ) : (
-                ""
-              )
-            }`}
-          </h1>
-          <span className="flex items-center gap-2">
-            <h1>go to</h1>
-            <Pointer color="#06C270" />
-          </span>
+        <div>
+          {" "}
+          <div className="flex justify-between px-8">
+            <Toaster />
+            <h1 className="text-3xl mb-4">
+              {`Howdy, ${data.username}! ${
+                data.role === "revechat" ? (
+                  <i>revechat agents cannot see their analytics here.</i>
+                ) : (
+                  ""
+                )
+              }`}
+            </h1>
 
-          <div className="">
-            {data.role === "email" ? (
-              <Link href="/email">
-                <Button
-                  colorConfig={{
-                    backgroundColor: "#0d0d0d",
-                    borderColor: "#E5FE40",
-                    color: "#ffffff",
-                    disabledColors: {
-                      backgroundColor: "#8A8A8A",
-                      color: "rgba(255,255,255, 0.5)",
+            <div className="flex gap-4">
+              <div className="flex items-center gap-2">
+                <h1>go to</h1>
+                <Pointer color="#06C270" />
+              </div>
+              {data.role === "email" ? (
+                <Link href="/email">
+                  <Button
+                    colorConfig={{
+                      backgroundColor: "#0d0d0d",
+                      borderColor: "#E5FE40",
+                      color: "#ffffff",
+                      disabledColors: {
+                        backgroundColor: "#8A8A8A",
+                        color: "rgba(255,255,255, 0.5)",
+                        edgeColors: {
+                          bottom: "#E0E0E0",
+                          left: "transparent",
+                          right: "#EFEFEF",
+                          top: "transparent",
+                        },
+                      },
                       edgeColors: {
-                        bottom: "#E0E0E0",
+                        bottom: "#67721F",
                         left: "transparent",
-                        right: "#EFEFEF",
+                        right: "#A2B42D",
                         top: "transparent",
                       },
-                    },
-                    edgeColors: {
-                      bottom: "#67721F",
-                      left: "transparent",
-                      right: "#A2B42D",
-                      top: "transparent",
-                    },
-                  }}
-                  colorMode="dark"
-                  kind="elevated"
-                  size="big"
-                  variant="secondary"
-                >
-                  Emails
-                </Button>
-              </Link>
-            ) : null}
-            {data.role === "doubts" ? (
-              <Link href="/doubts">
-                <Button
-                  colorConfig={{
-                    backgroundColor: "#0d0d0d",
-                    borderColor: "#E5FE40",
-                    color: "#ffffff",
-                    disabledColors: {
-                      backgroundColor: "#8A8A8A",
-                      color: "rgba(255,255,255, 0.5)",
+                    }}
+                    colorMode="dark"
+                    kind="elevated"
+                    size="big"
+                    variant="secondary"
+                  >
+                    Emails
+                  </Button>
+                </Link>
+              ) : null}
+              {data.role === "doubts" ? (
+                <Link href="/doubts">
+                  <Button
+                    colorConfig={{
+                      backgroundColor: "#0d0d0d",
+                      borderColor: "#E5FE40",
+                      color: "#ffffff",
+                      disabledColors: {
+                        backgroundColor: "#8A8A8A",
+                        color: "rgba(255,255,255, 0.5)",
+                        edgeColors: {
+                          bottom: "#E0E0E0",
+                          left: "transparent",
+                          right: "#EFEFEF",
+                          top: "transparent",
+                        },
+                      },
                       edgeColors: {
-                        bottom: "#E0E0E0",
+                        bottom: "#67721F",
                         left: "transparent",
-                        right: "#EFEFEF",
+                        right: "#A2B42D",
                         top: "transparent",
                       },
-                    },
-                    edgeColors: {
-                      bottom: "#67721F",
-                      left: "transparent",
-                      right: "#A2B42D",
-                      top: "transparent",
-                    },
-                  }}
-                  colorMode="dark"
-                  kind="elevated"
-                  size="big"
-                  variant="secondary"
-                >
-                  Doubts
-                </Button>
-              </Link>
-            ) : null}
-            {data.role === "discord" ? (
-              <Link href="/discord">
-                <Button
-                  colorConfig={{
-                    backgroundColor: "#0d0d0d",
-                    borderColor: "#E5FE40",
-                    color: "#ffffff",
-                    disabledColors: {
-                      backgroundColor: "#8A8A8A",
-                      color: "rgba(255,255,255, 0.5)",
+                    }}
+                    colorMode="dark"
+                    kind="elevated"
+                    size="big"
+                    variant="secondary"
+                  >
+                    Doubts
+                  </Button>
+                </Link>
+              ) : null}
+              {data.role === "discord" ? (
+                <Link href="/discord">
+                  <Button
+                    colorConfig={{
+                      backgroundColor: "#0d0d0d",
+                      borderColor: "#E5FE40",
+                      color: "#ffffff",
+                      disabledColors: {
+                        backgroundColor: "#8A8A8A",
+                        color: "rgba(255,255,255, 0.5)",
+                        edgeColors: {
+                          bottom: "#E0E0E0",
+                          left: "transparent",
+                          right: "#EFEFEF",
+                          top: "transparent",
+                        },
+                      },
                       edgeColors: {
-                        bottom: "#E0E0E0",
+                        bottom: "#67721F",
                         left: "transparent",
-                        right: "#EFEFEF",
+                        right: "#A2B42D",
                         top: "transparent",
                       },
-                    },
-                    edgeColors: {
-                      bottom: "#67721F",
-                      left: "transparent",
-                      right: "#A2B42D",
-                      top: "transparent",
-                    },
-                  }}
-                  colorMode="dark"
-                  kind="elevated"
-                  size="big"
-                  variant="secondary"
-                >
-                  Discord
-                </Button>
-              </Link>
-            ) : null}
-            {data.role === "assignment" ? (
-              <Link href="/assignment">
-                <Button
-                  colorConfig={{
-                    backgroundColor: "#0d0d0d",
-                    borderColor: "#E5FE40",
-                    color: "#ffffff",
-                    disabledColors: {
-                      backgroundColor: "#8A8A8A",
-                      color: "rgba(255,255,255, 0.5)",
+                    }}
+                    colorMode="dark"
+                    kind="elevated"
+                    size="big"
+                    variant="secondary"
+                  >
+                    Discord
+                  </Button>
+                </Link>
+              ) : null}
+              {data.role === "assignment" ? (
+                <Link href="/assignment">
+                  <Button
+                    colorConfig={{
+                      backgroundColor: "#0d0d0d",
+                      borderColor: "#E5FE40",
+                      color: "#ffffff",
+                      disabledColors: {
+                        backgroundColor: "#8A8A8A",
+                        color: "rgba(255,255,255, 0.5)",
+                        edgeColors: {
+                          bottom: "#E0E0E0",
+                          left: "transparent",
+                          right: "#EFEFEF",
+                          top: "transparent",
+                        },
+                      },
                       edgeColors: {
-                        bottom: "#E0E0E0",
+                        bottom: "#67721F",
                         left: "transparent",
-                        right: "#EFEFEF",
+                        right: "#A2B42D",
                         top: "transparent",
                       },
-                    },
-                    edgeColors: {
-                      bottom: "#67721F",
-                      left: "transparent",
-                      right: "#A2B42D",
-                      top: "transparent",
-                    },
-                  }}
-                  colorMode="dark"
-                  kind="elevated"
-                  size="big"
-                  variant="secondary"
-                >
-                  Assignments
-                </Button>
-              </Link>
-            ) : null}
+                    }}
+                    colorMode="dark"
+                    kind="elevated"
+                    size="big"
+                    variant="secondary"
+                  >
+                    Assignments
+                  </Button>
+                </Link>
+              ) : null}
+            </div>
+          </div>
+          {/* Tickets */}
+          <div className="flex gap-4 px-8 mt-10">
+            <div className="flex-grow bg-[#3A3B3C] rounded-lg shadow-lg p-6">
+              <h2 className="text-2xl font-semibold mb-4">Support Tickets</h2>
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead>
+                    <tr>
+                      <th className="text-left">Subject</th>
+                      <th className="text-left">Priority</th>
+                      <th className="text-left">Email</th>
+                      <th className="text-left">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tickets.map((ticket) => (
+                      <tr key={ticket._id}>
+                        <td className="border border-gray-300 p-2">
+                          {ticket.subject}
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          {ticket.priority}
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          {ticket.studentEmail}
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          {ticket.description}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="flex-grow bg-[#3A3B3C] rounded-lg shadow-lg p-6">
+              <h2 className="text-2xl font-semibold mb-4">Support Tickets</h2>
+            </div>
           </div>
         </div>
       ) : (
