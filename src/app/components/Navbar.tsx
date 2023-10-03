@@ -7,8 +7,8 @@ import { toast, Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-// import { useDispatch } from "react-redux";
-// import { logIn } from "@/redux/features/authSlice";
+import { useDispatch } from "react-redux";
+import { logIn } from "@/redux/features/authSlice";
 
 import Form from "./Form";
 import { AppDispatch, useAppSelector } from "@/redux/store";
@@ -16,12 +16,11 @@ import { AppDispatch, useAppSelector } from "@/redux/store";
 const Navbar = () => {
   const router = useRouter();
   const path = usePathname();
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
-  const isAuth = true;
+  const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
 
   const [data, setData] = useState({
     _id: "",
@@ -35,28 +34,26 @@ const Navbar = () => {
   const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    console.log("Navbar useEffect");
-    // const fetchUser = async () => {
-    //   try {
-    //     if (path !== "/login" && path !== "/signup") {
-    //       const res = await axios.get("/api/users/me");
-    //       setData(res.data.data);
-    //       dispatch(logIn(true));
-    //       setIsLoading(false);
-    //       setIsLoggedIn(isAuth);
-    //     }
-    //   } catch (error) {
-    //     setIsLoggedIn(false);
-    //     // Handle error gracefully if needed.
-    //   } finally {
-    //     setIsLoading(false); // Set isLoading to false regardless of success or error.
-    //   }
-    // };
+    const fetchUser = async () => {
+      try {
+        if (path !== "/login" && path !== "/signup") {
+          const res = await axios.get("/api/users/me");
+          setData(res.data.data);
+          dispatch(logIn(true));
+          setIsLoading(false);
+          setIsLoggedIn(isAuth);
+        }
+      } catch (error) {
+        setIsLoggedIn(false);
+        // Handle error gracefully if needed.
+      } finally {
+        setIsLoading(false); // Set isLoading to false regardless of success or error.
+      }
+    };
 
-    // fetchUser();
+    fetchUser();
   }, []);
 
   useEffect(() => {
@@ -95,7 +92,6 @@ const Navbar = () => {
             priority={false}
           />
         </Link>
-        {"Hello"}
 
         <div>
           {isLoggedIn ? (

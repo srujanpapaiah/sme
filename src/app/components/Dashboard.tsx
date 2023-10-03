@@ -8,7 +8,6 @@ import Image from "next/image";
 import { Tag } from "@cred/neopop-web/lib/components";
 
 import React from "react";
-import Image from "next/image";
 const { Button, Pointer } = require("@cred/neopop-web/lib/components");
 
 // eslint-disable-next-line @next/next/no-async-client-component
@@ -16,7 +15,6 @@ const { Button, Pointer } = require("@cred/neopop-web/lib/components");
 export default function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  console.log("Hello");
   const [tickets, setTickets] = useState([
     {
       _id: "",
@@ -46,28 +44,28 @@ export default function Dashboard() {
     __v: 0,
   });
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const res = await axios.get("/api/users/me");
-  //       const ticketsRes = await axios.get("/api/tickets/all");
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get("/api/users/me");
+        const ticketsRes = await axios.get("/api/tickets/all");
 
-  //       const userData = res.data.data;
-  //       const ticketsData = ticketsRes.data.data;
-  //       setIsLoggedIn(true);
-  //       setData(userData);
-  //       setTickets(ticketsData);
-  //       console.log(ticketsData);
-  //     } catch (error) {
-  //       console.error("Error fetching user data:", error);
-  //       setIsLoggedIn(false);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
+        const userData = res.data.data;
+        const ticketsData = ticketsRes.data.data;
+        setIsLoggedIn(true);
+        setData(userData);
+        setTickets(ticketsData);
+        console.log(ticketsData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setIsLoggedIn(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  //   fetchUser();
-  // }, []);
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     console.log("Hells");
@@ -90,7 +88,6 @@ export default function Dashboard() {
   // }
 
   return (
-    <div className="flex flex-col mt-10  text-[#CDD0D4] ">
     <div className="flex flex-col mt-10  text-[#CDD0D4] ">
       {isLoggedIn ? (
         <div>
