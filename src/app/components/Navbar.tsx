@@ -54,7 +54,7 @@ const Navbar = () => {
     };
 
     fetchUser();
-  }, []);
+  }, [isAuth, path]);
 
   useEffect(() => {
     console.log("Navbar");
