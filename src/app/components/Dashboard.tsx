@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Tag } from "@cred/neopop-web/lib/components";
 
 import React from "react";
+import Image from "next/image";
 const { Button, Pointer } = require("@cred/neopop-web/lib/components");
 
 // eslint-disable-next-line @next/next/no-async-client-component
@@ -89,6 +90,7 @@ export default function Dashboard() {
   // }
 
   return (
+    <div className="flex flex-col mt-10  text-[#CDD0D4] ">
     <div className="flex flex-col mt-10  text-[#CDD0D4] ">
       {isLoggedIn ? (
         <div>

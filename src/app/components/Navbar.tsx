@@ -35,6 +35,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     console.log("Navbar useEffect");
@@ -82,6 +83,7 @@ const Navbar = () => {
   };
 
   return (
+    <div className="bg-[#242526] h-16 px-6 flex justify-between items-center">
     <div className="bg-[#242526] h-16 px-6 flex justify-between items-center">
       <Toaster />
       <div className="flex items-center gap-8">
