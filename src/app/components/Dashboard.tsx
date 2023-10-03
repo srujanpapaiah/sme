@@ -4,11 +4,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
-import Image from "next/image";
-import { Tag } from "@cred/neopop-web/lib/components";
 
 import React from "react";
-const { Button, Pointer } = require("@cred/neopop-web/lib/components");
+const { Button, Pointer, Tag } = require("@cred/neopop-web/lib/components");
 
 // eslint-disable-next-line @next/next/no-async-client-component
 
