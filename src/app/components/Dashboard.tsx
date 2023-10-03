@@ -313,7 +313,7 @@ export default function Dashboard() {
                         </tr>
                         {index < tickets.length - 1 && (
                           <tr>
-                            <td colSpan="5" className="p-2">
+                            <td colSpan={5} className="p-2">
                               <hr
                                 className="border-t border-gray-300"
                                 style={{ borderColor: "#3D4042" }}
