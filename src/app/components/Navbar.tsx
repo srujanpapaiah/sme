@@ -84,7 +84,6 @@ const Navbar = () => {
 
   return (
     <div className="bg-[#242526] h-16 px-6 flex justify-between items-center">
-    <div className="bg-[#242526] h-16 px-6 flex justify-between items-center">
       <Toaster />
       <div className="flex items-center gap-8">
         <Link href="/" className="text-white font-bold text-xl">
