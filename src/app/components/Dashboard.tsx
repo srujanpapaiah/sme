@@ -4,8 +4,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
-
 import React from "react";
+import TicketDataModal from "./TicketDataModal";
 const { Button, Pointer, Tag } = require("@cred/neopop-web/lib/components");
 
 // eslint-disable-next-line @next/next/no-async-client-component
@@ -13,6 +13,8 @@ const { Button, Pointer, Tag } = require("@cred/neopop-web/lib/components");
 export default function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [ticketModalData, setTicketModalData] = useState({});
   const [tickets, setTickets] = useState([
     {
       _id: "",
@@ -65,9 +67,10 @@ export default function Dashboard() {
     fetchUser();
   }, []);
 
-  useEffect(() => {
-    console.log("Hells");
-  });
+  const openModal = (ticket: any) => {
+    setModalVisible(true);
+    setTicketModalData(ticket);
+  };
 
   if (isLoading) {
     return (
@@ -89,7 +92,11 @@ export default function Dashboard() {
     <div className="flex flex-col mt-10  text-[#CDD0D4] ">
       {isLoggedIn ? (
         <div>
-          {" "}
+          <TicketDataModal
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            data={ticketModalData}
+          />
           <div className="flex justify-between px-8">
             <Toaster />
             <h1 className="text-3xl mb-4">
@@ -242,15 +249,30 @@ export default function Dashboard() {
             </div>
           </div>
           {/* Tickets */}
-          <div className="flex gap-4 px-8 mt-10">
-            <div className="flex-grow w-1/2 bg-[#242526] rounded-lg shadow-lg p-6">
-              <h2 className="text-3xl font-semibold mb-4 text-[#E3E6EA]">
-                Support Tickets
-              </h2>
-              <div className="overflow-x-auto">
+          <div className="flex gap-4 px-8 mt-10 ">
+            <div className="flex-grow w-1/2 bg-[#242526] rounded-lg shadow-lg p-6 ">
+              <div className="flex justify-between">
+                <h2 className="text-3xl font-semibold mb-4 text-[#E3E6EA]">
+                  Support Tickets
+                </h2>
+                <div className="h-auto cursor-pointer">
+                  <Tag
+                    colorConfig={{
+                      background: "#F08D32",
+                      color: "#FBFBFB",
+                    }}
+                  >
+                    <span className="flex gap-2">
+                      {" "}
+                      more <Pointer color="#FBFBFB" />
+                    </span>
+                  </Tag>
+                </div>
+              </div>
+              <div className="overflow-x-auto" style={{ maxHeight: "500px" }}>
                 <table className="min-w-full">
                   <thead>
-                    <tr className="text-[#E3E6EA] text-lg">
+                    <tr className="text-[#eae6e3] text-lg">
                       <th className="text-center w-1/4">Subject</th>
                       <th className="text-center w-1/6">Priority</th>
                       <th className="text-center w-1/4">Email</th>
@@ -306,7 +328,10 @@ export default function Dashboard() {
                             </div>
                           </td>
                           <td className="text-center p-2">
-                            <button className="px-4 py-2 text-[#E6E9EC] bg-[#4E4F50] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300">
+                            <button
+                              className="px-4 py-2 text-[#E6E9EC] bg-[#4E4F50] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300"
+                              onClick={() => openModal(ticket)}
+                            >
                               More
                             </button>
                           </td>
@@ -330,10 +355,45 @@ export default function Dashboard() {
 
             <div className="flex flex-col gap-4 w-1/3 h-full">
               <div className="flex-grow bg-[#242526] rounded-lg shadow-lg p-6">
-                <h2 className="text-2xl font-semibold mb-4">Announcements</h2>
+                <h2 className="text-2xl font-semibold text-white mb-4">
+                  Announcements
+                </h2>
+
+                <div className="border-t border-[#3D4042] pt-4">
+                  <div className="mb-4">
+                    <h3 className="text-xl font-semibold text-white">
+                      Important Announcement
+                    </h3>
+                    <p className="text-gray-300">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Nullam vehicula ante at viverra.
+                    </p>
+                  </div>
+
+                  <div className="mb-4">
+                    <h3 className="text-xl font-semibold text-white">
+                      Upcoming Event
+                    </h3>
+                    <p className="text-gray-300">
+                      Join us for our annual event on October 15th at 2:00 PM.
+                      Save the date!
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">
+                      New Course Update
+                    </h3>
+                    <p className="text-gray-300">
+                      New course "Web Development Mastery" is going to start
+                      next month.
+                    </p>
+                  </div>
+                </div>
               </div>
+
               <div className="flex-grow bg-[#242526] rounded-lg shadow-lg p-6">
-                <h2 className="text-2xl font-semibold mb-4">Announcement 2</h2>
+                <h2 className="text-2xl font-semibold mb-4">Courses</h2>
               </div>
             </div>
           </div>

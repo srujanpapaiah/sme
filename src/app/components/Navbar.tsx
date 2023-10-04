@@ -42,7 +42,7 @@ const Navbar = () => {
           const res = await axios.get("/api/users/me");
           setData(res.data.data);
           dispatch(logIn(true));
-          setIsLoading(false);
+          setIsLoading(true);
           setIsLoggedIn(isAuth);
         }
       } catch (error) {
@@ -54,11 +54,7 @@ const Navbar = () => {
     };
 
     fetchUser();
-  }, [isAuth, path]);
-
-  useEffect(() => {
-    console.log("Navbar");
-  });
+  }, [dispatch, isAuth, path]);
 
   const openModal = () => {
     setModalVisible(true);

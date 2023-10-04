@@ -34,5 +34,7 @@ export const config = {
     "/rules/(.*)",
     "/tickets/",
     "/tickets/(.*)",
+    "/doubts",
+    "/doubts/(.*)",
   ],
 };

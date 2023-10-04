@@ -5,12 +5,12 @@ import dayjs from "dayjs";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Spreadsheet } from "react-spreadsheet";
-import Card from "../components/emailCard";
 import Link from "next/link";
 import { RenderAnalytics } from "./analytics";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "react-hot-toast";
+const { Button } = require("@cred/neopop-web/lib/components");
 
 export default function Home() {
   const router = useRouter();
@@ -104,6 +104,7 @@ export default function Home() {
           <select
             style={{ padding: 10 }}
             onChange={(e) => setName(e.target.value)}
+            className="rounded"
           >
             <option value="">Select SME</option>
             <option value="Srujan Papaiahgari">Srujan Papaiahgari</option>
@@ -119,7 +120,7 @@ export default function Home() {
               onClick={() => {
                 setStartDate(dayjs(startDate).subtract(1, "day").toDate());
               }}
-              className="border border-green-500 hover:border-green-600 text-white  hover:bg-green-600 px-4 py-2 rounded"
+              className=" text-left px-4 py-2 text-[#E6E9EC] bg-[#3A3B3C] rounded-lg focus:outline-none transition-all duration-300"
             >
               &lt;
             </button>
@@ -129,27 +130,58 @@ export default function Home() {
               onChange={(date) => {
                 setStartDate(date as Date);
               }}
-              className="border border-green-500 mx-2 py-2 text-center rounded-md"
+              className=" mx-2 py-2 text-center rounded-md"
             />
             <button
               onClick={() => {
                 setStartDate(dayjs(startDate).add(1, "day").toDate());
               }}
-              className="border border-green-500 hover:border-green-600 text-white  hover:bg-green-600 px-4 py-2 rounded "
+              className=" text-left px-4 py-2 text-[#E6E9EC] bg-[#3A3B3C] rounded-lg focus:outline-none transition-all duration-300"
             >
               &gt;
             </button>
           </div>
           <div className="flex gap-2">
-            <button
-              onClick={getData}
-              className="p-2 border border-green-500 hover:border-green-600 rounded text-white"
+            <div>
+              <Button
+                colorMode="light"
+                kind="elevated"
+                onClick={getData}
+                size="big"
+              >
+                Refetch
+              </Button>
+            </div>
+            ;
+            <Button
+              colorConfig={{
+                backgroundColor: "#0d0d0d",
+                borderColor: "#E5FE40",
+                color: "#ffffff",
+                disabledColors: {
+                  backgroundColor: "#8A8A8A",
+                  color: "rgba(255,255,255, 0.5)",
+                  edgeColors: {
+                    bottom: "#E0E0E0",
+                    left: "transparent",
+                    right: "#EFEFEF",
+                    top: "transparent",
+                  },
+                },
+                edgeColors: {
+                  bottom: "#67721F",
+                  left: "transparent",
+                  right: "#A2B42D",
+                  top: "transparent",
+                },
+              }}
+              colorMode="dark"
+              kind="elevated"
+              size="big"
+              variant="secondary"
             >
-              Refetch
-            </button>
-            <button className="p-2  border border-green-500 hover:border-green-600 rounded text-white">
               <Link href="/detail">Detail</Link>
-            </button>
+            </Button>
           </div>
         </div>
       )}

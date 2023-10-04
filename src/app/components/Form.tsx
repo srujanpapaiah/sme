@@ -98,10 +98,11 @@ const Form = ({ modalVisible, setModalVisible, data }) => {
           onClick={handleOverlayClick}
         >
           <Toaster />
-          <div className="bg-[#3A3B3C] p-6 rounded-lg shadow-md w-3/6 mt-80">
+          <div className="bg-[#242526] p-6 rounded-lg shadow-md w-3/6 mt-80">
             <button
-              className="close text-[#e74f4f] float-right  text-3xl font-bold hover:text-black focus:text-black focus:outline-none"
+              className="close text-[#B0B4B7] bg-[#4E4F50] rounded-full float-right text-3xl font-bold hover:text-black cursor-pointer focus:text-black focus:outline-none"
               onClick={closeModal}
+              style={{ width: "40px", height: "40px" }}
             >
               &times;
             </button>
@@ -147,7 +148,7 @@ const Form = ({ modalVisible, setModalVisible, data }) => {
                 <textarea
                   id="description"
                   name="description"
-                  rows="4"
+                  rows={4}
                   value={ticketData.description}
                   onChange={(e) =>
                     setTicketData({

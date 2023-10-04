@@ -19,7 +19,6 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logIn: (state, action: PayloadAction<boolean>) => {
-      console.log("Reducer hit", action);
       return {
         value: {
           isAuth: action.payload,
