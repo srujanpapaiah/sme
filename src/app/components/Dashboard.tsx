@@ -147,7 +147,7 @@ export default function Dashboard() {
                   </Button>
                 </Link>
               ) : null}
-              {data.role === "doubts" ? (
+              {data.role === "doubt" ? (
                 <Link href="/doubts">
                   <Button
                     colorConfig={{
