@@ -8,7 +8,7 @@ const Doubt = () => {
 const [token ,setToken] = useState(null)
 const [mapCourse,setCourse] = useState(null)
 
-console.log(mapCourse[0].data);
+// console.log(mapCourse[0].data);
 
 
 const getDataa = async() => {
