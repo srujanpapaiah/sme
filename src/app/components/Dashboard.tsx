@@ -12,7 +12,7 @@ const { Button, Pointer, Tag } = require("@cred/neopop-web/lib/components");
 
 export default function Dashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [ticketModalData, setTicketModalData] = useState({});
   const [tickets, setTickets] = useState([

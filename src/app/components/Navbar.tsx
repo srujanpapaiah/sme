@@ -81,11 +81,12 @@ const Navbar = () => {
       <div className="flex items-center gap-8">
         <Link href="/" className="text-white font-bold text-xl">
           <Image
-            src={"/PWSkills-white.png"}
+            src={"/ineuron-logo.png"}
             alt={""}
             width={150}
             height={50}
             priority={false}
+            className=""
           />
         </Link>
 
@@ -93,7 +94,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <div className="flex gap-8 text-md font-semibold text-[#B8BBBF]">
               <Link href="/rules">Rules</Link>
-              <Link href="/pwians">PWians</Link>
+              <Link href="/neurons">Neurons</Link>
               <Link href="/assets">Assets</Link>
             </div>
           ) : null}

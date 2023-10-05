@@ -12,6 +12,16 @@ const TicketDataModal = ({ modalVisible, setModalVisible, data }) => {
   const closeModal = () => {
     setModalVisible(false);
   };
+
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "two-digit",
+    minute: "two-digit",
+    second: "two-digit",
+  };
+
   return (
     <>
       {modalVisible && (
@@ -58,7 +68,7 @@ const TicketDataModal = ({ modalVisible, setModalVisible, data }) => {
                 </div>
                 <div className="mb-4">
                   <h3 className="text-lg font-semibold">Date:</h3>
-                  <p>{data.date}</p>
+                  <p>{data.date.toLocaleString(options)}</p>
                 </div>
               </div>
               <div>
