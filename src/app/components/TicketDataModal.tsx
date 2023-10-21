@@ -1,11 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { toast, Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
-const TicketDataModal = ({ modalVisible, setModalVisible, data }) => {
-  const handleOverlayClick = (event: {
-    target: { classList: { contains: (arg0: string) => any } };
-  }) => {
-    if (event.target.classList.contains("overlay")) {
+interface FormProps {
+  modalVisible: boolean;
+  setModalVisible: (isVisible: boolean) => void;
+  data: any;
+}
+
+const TicketDataModal: React.FC<FormProps> = ({
+  modalVisible,
+  setModalVisible,
+  data,
+}) => {
+  const handleOverlayClick: React.MouseEventHandler<HTMLDivElement> = (
+    event
+  ) => {
+    const target = event.target as HTMLElement;
+
+    if (target.classList.contains("overlay")) {
       closeModal();
     }
   };

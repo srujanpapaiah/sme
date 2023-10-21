@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
 
-const Form = ({ modalVisible, setModalVisible, data }) => {
+interface FormProps {
+  modalVisible: boolean;
+  setModalVisible: (isVisible: boolean) => void;
+  data: any;
+}
+
+const Form: React.FC<FormProps> = ({ modalVisible, setModalVisible, data }) => {
   const [ticketData, setTicketData] = useState<{
     creator: string;
     creatorId: string;
@@ -31,13 +37,16 @@ const Form = ({ modalVisible, setModalVisible, data }) => {
     courseInvoice: "",
   });
 
-  const handleOverlayClick = (event: {
-    target: { classList: { contains: (arg0: string) => any } };
-  }) => {
-    if (event.target.classList.contains("overlay")) {
+  const handleOverlayClick: React.MouseEventHandler<HTMLDivElement> = (
+    event
+  ) => {
+    const target = event.target as HTMLElement;
+
+    if (target.classList.contains("overlay")) {
       closeModal();
     }
   };
+
   const closeModal = () => {
     setModalVisible(false);
   };
@@ -73,7 +82,7 @@ const Form = ({ modalVisible, setModalVisible, data }) => {
     e.preventDefault();
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
-    setTicketData({ ...ticketData, courseInvoice: base64 });
+    setTicketData({ ...ticketData, courseInvoice: base64 as string });
   };
 
   const convertToBase64 = (file: any) => {
