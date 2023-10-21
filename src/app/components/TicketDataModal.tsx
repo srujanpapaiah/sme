@@ -38,40 +38,40 @@ const TicketDataModal = ({ modalVisible, setModalVisible, data }) => {
             >
               &times;
             </button>
-            <h1 className="text-3xl text-[#CDD0D4] text-center font-bold">
-              Issue
+            <h1 className="text-3xl text-[#CDD0D4] text-center font-bold mb-4">
+              Ticket Info
             </h1>
-            <div className="grid grid-cols-3 ">
-              <div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="mr-8 px-4 py-2 text-[#E6E9EC]  bg-[#4E4F50] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300">
                 <div className="mb-4">
                   <h3 className="text-lg font-semibold">Ticket Creator:</h3>
-                  <h2 className="text-xl text-gray-500">{data.creator}</h2>
+                  <h2 className="text-xl text-[#CDD0D4]">{data.creator}</h2>
                 </div>
 
                 <div className="mb-4">
                   <h3 className="text-lg font-semibold">Department:</h3>
-                  <h2 className="text-xl text-gray-500">{data.department}</h2>
+                  <h2 className="text-xl text-[#CDD0D4]">{data.department}</h2>
                 </div>
               </div>
-              <div>
-                <div className="mb-4">
+              <div className="mr-8 px-4 py-2 text-[#E6E9EC]  bg-[#4E4F50] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300">
+                <div className="mb-4 flex gap-2 items-center">
                   <h3 className="text-lg font-semibold">Subject:</h3>
-                  <p>{data.subject}</p>
+                  <p className="text-[#CDD0D4]">{data.subject}</p>
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 flex gap-2 ">
                   <h3 className="text-lg font-semibold">Description:</h3>
                   <p>{data.description}</p>
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 flex gap-2 items-center">
                   <h3 className="text-lg font-semibold">Priority:</h3>
                   <p>{data.priority}</p>
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 flex gap-2">
                   <h3 className="text-lg font-semibold">Date:</h3>
                   <p>{data.date.toLocaleString(options)}</p>
                 </div>
               </div>
-              <div>
+              <div className="mr-8 px-4 py-2 text-[#E6E9EC]  bg-[#4E4F50] hover:bg-[#3A3B3C] rounded-lg transition-all duration-300">
                 <div className="mb-4">
                   <h3 className="text-lg font-semibold">
                     Student Information:
@@ -98,18 +98,28 @@ const TicketDataModal = ({ modalVisible, setModalVisible, data }) => {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-col">
-                <div className="mb-4 flex gap-2 items-center">
-                  <h3 className="text-lg font-semibold">Course Enrolled:</h3>
-                  <p>{data.courseEnrolled}</p>
-                </div>
-                <div>
+            </div>
+            <div>
+              <div className="mb-4 flex gap-2 items-center">
+                <h3 className="text-lg font-semibold">Course Enrolled:</h3>
+                <p>{data.courseEnrolled}</p>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-1/2 h-auto">
                   <h3 className="text-lg font-semibold">Course Invoice:</h3>
                   <img
                     src={data.courseInvoice}
                     alt="Course Invoice"
                     className="mt-2 max-w-full h-auto border border-[#CDD0D4]"
                   />
+                </div>
+                <div className="w-1/2">
+                  <h3 className="text-lg font-semibold">Issue Image:</h3>
+                  <img
+                    src={data.courseInvoice}
+                    alt="Course Invoice"
+                    className="mt-2 max-w-full h-auto border border-[#CDD0D4]"
+                  />{" "}
                 </div>
               </div>
             </div>

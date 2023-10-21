@@ -22,7 +22,6 @@ export default function Profile() {
     try {
       await axios.get("/api/users/logout");
       toast.success("Logout Successful");
-
       router.push("/login");
     } catch (error: any) {
       toast.error(error.message);
@@ -44,9 +43,9 @@ export default function Profile() {
   }, []);
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center mx-4 justify-center gap-4">
       <Toaster />
-      <div className="flex flex-col items-center justify-center min-h-screen text-white py-8 w-1/2">
+      <div className="flex flex-col items-center justify-center min-h-screen text-white  w-1/2">
         <div className="profile-header text-center">
           <h1 className="text-3xl font-bold">
             {data.username === "" ? (
@@ -67,7 +66,7 @@ export default function Profile() {
           </Tag>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-4 mt-8">
+        <div className="flex flex-col md:flex-row gap-4 mt-8 w-full">
           {/* Edit Profile Card */}
           <div className="flex-1">
             <div className="bg-gray-800 text-white rounded-md p-4 transform transition-transform duration-300 hover:scale-105 shadow-md">
@@ -95,8 +94,8 @@ export default function Profile() {
         </button>
       </div>
 
-      <div className="flex-1 mt-4 w-1/2">
-        <div className="bg-gray-800 text-white rounded-md p-4 transform transition-transform duration-300 hover:scale-105 shadow-md">
+      <div className="flex-1  w-1/2">
+        <div className="bg-gray-800 text-white rounded-md p-4 transform transition-transform duration-300 hover:scale-105 shadow-md text-center">
           <h1 className="text-xl font-bold mb-2">Tickets Raised by You</h1>
           {/* Add content for Tickets Raised by You here */}
         </div>

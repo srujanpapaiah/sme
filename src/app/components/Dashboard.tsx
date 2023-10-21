@@ -49,7 +49,6 @@ export default function Dashboard() {
       try {
         const res = await axios.get("/api/users/me");
         const ticketsRes = await axios.get("/api/tickets/all");
-
         const userData = res.data.data;
         const ticketsData = ticketsRes.data.data;
         setIsLoggedIn(true);

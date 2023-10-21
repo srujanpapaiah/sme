@@ -3,12 +3,18 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import { sendEmail } from "@/helpers/mailer";
+import { nanoid } from "nanoid";
+import { redis } from "@/lib/redis";
 
 export async function POST(request: NextRequest) {
   try {
     connect();
     const reqBody = await request.json();
     const { username, email, role, password } = reqBody;
+
+    const userId = nanoid();
+
+    await redis.rpush("users", userId);
 
     const user = await User.findOne({ email });
 
