@@ -33,7 +33,7 @@ export default function Profile() {
       const res = await axios.get("/api/users/me");
       setData(res.data.data);
       console.log(res.data.data);
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.message);
     }
   };
