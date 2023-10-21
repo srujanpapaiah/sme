@@ -23,7 +23,6 @@
     "eslint-config-next": "^13.5.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.1",
-    "nanoid": "^5.0.1",
     "next": "^13.5.3",
     "nodemailer": "^6.9.5",
     "postcss": "8.4.29",
