@@ -23,10 +23,6 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  role: {
-    type: String,
-    required: [true, "Please select the role"],
-  },
   forgotPasswordToken: String,
   forgotPasswordTokenExpiry: Date,
   verifyToken: String,
