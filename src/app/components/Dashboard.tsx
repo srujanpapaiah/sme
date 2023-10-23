@@ -44,17 +44,32 @@ export default function Dashboard() {
     __v: 0,
   });
 
+  const [chats, setChats] = useState([
+    {
+      isVerified: false,
+      isAdmin: false,
+      _id: "",
+      username: "",
+      email: "",
+      password: "",
+      __v: 0,
+    },
+  ]);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await axios.get("/api/users/me");
         const ticketsRes = await axios.get("/api/tickets/all");
+        const users = await axios.get("/api/users/all");
         const userData = res.data.data;
+
+        const chatsData = users.data.data;
         const ticketsData = ticketsRes.data.data;
         setIsLoggedIn(true);
         setData(userData);
+        setChats(chatsData);
         setTickets(ticketsData);
-        console.log(ticketsData);
       } catch (error) {
         console.error("Error fetching user data:", error);
         setIsLoggedIn(false);
@@ -69,6 +84,11 @@ export default function Dashboard() {
   const openModal = (ticket: any) => {
     setModalVisible(true);
     setTicketModalData(ticket);
+  };
+
+  const chatBox = (receivedID: any) => {
+    console.log("receiverID:", receivedID);
+    console.log("senderID:", data._id);
   };
 
   if (isLoading) {
@@ -353,7 +373,7 @@ export default function Dashboard() {
             </div>
 
             <div className="flex flex-col gap-4 w-1/3 h-full">
-              <div className="flex-grow bg-[#242526] rounded-lg shadow-lg p-6">
+              {/* <div className="flex-grow bg-[#242526] rounded-lg shadow-lg p-6">
                 <h2 className="text-2xl font-semibold text-white mb-4">
                   Announcements
                 </h2>
@@ -389,10 +409,24 @@ export default function Dashboard() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="flex-grow bg-[#242526] rounded-lg shadow-lg p-6">
-                <h2 className="text-2xl font-semibold mb-4">Courses</h2>
+                <div className="overflow-x-auto" style={{ maxHeight: "550px" }}>
+                  <h2 className="text-2xl font-semibold mb-4">Chats</h2>
+
+                  {chats.map((user, index) => (
+                    <div className="text-2xl">
+                      <button
+                        onClick={() => chatBox(user._id)}
+                        key={user._id}
+                        className="chat-button"
+                      >
+                        <h1>{user.username}</h1>
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

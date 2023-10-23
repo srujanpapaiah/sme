@@ -12,7 +12,6 @@ export default function Signup() {
   const [user, setUser] = React.useState({
     username: "",
     email: "",
-    role: "",
     password: "",
   });
 
@@ -22,7 +21,6 @@ export default function Signup() {
       setUser({
         username: "",
         email: "",
-        role: "",
         password: "",
       });
     }
@@ -37,6 +35,7 @@ export default function Signup() {
       // if (path !== "/signup") {
       const response = await axios.post("/api/users/signup", user);
       toast.success("Successfully Registered!");
+      localStorage.setItem("userInfo", JSON.stringify(response));
       router.push("/login");
       // }
     } catch (error: any) {
@@ -56,7 +55,6 @@ export default function Signup() {
     if (
       user.username.length > 0 &&
       user.email.length > 0 &&
-      user.role.length > 0 &&
       user.password.length > 0
     ) {
       setButtonDisabled(false);
@@ -92,11 +90,11 @@ export default function Signup() {
           onChange={(e) => setUser({ ...user, email: e.target.value })}
           placeholder="Email"
         />
-        <label htmlFor="role" className="mb-1">
+        {/* <label htmlFor="role" className="mb-1">
           {" "}
           Role
-        </label>
-        <select
+        </label> */}
+        {/* <select
           className="p-2 border border-gray-300 rounded-lg mb-4 w-full focus:outline-none focus:border-lime-600 text-black"
           id="role"
           value={user.role}
@@ -109,7 +107,7 @@ export default function Signup() {
           <option value="discord">Discord</option>
           <option value="assignment">Assignments</option>
           <option value="revechat">Reve Chat</option>
-        </select>
+        </select> */}
 
         <label htmlFor="password" className="mb-1">
           Password
