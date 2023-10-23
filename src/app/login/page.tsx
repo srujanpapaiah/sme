@@ -26,7 +26,7 @@ export default function Login() {
   const onLogin = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post("/api/user/login", user);
+      const response = await axios.post("/api/users/login", user);
       const userData = response.data.data;
       toast.success("Login Success");
       if (response) {
